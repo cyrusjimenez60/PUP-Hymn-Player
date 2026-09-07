@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUP Hymn</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a href="https://www.pup.edu.ph/" target="_blank">
+                <div class="brand">
+                    <div class="brand-logo">
+                        <img src="./resources/pup-logo.png" alt="PUP Logo">
+                    </div>
+                    <div class="brand-name">
+                        <h4 class="title">Polytechnic University of the Philippines</h4>
+                        <h6 class="sub">The Country's First PolytechnicU</h6>                                              
+                    </div>
+                </div>
+            </a>
+        </div>
+    </header>
+
+    <div class="container2">
+        <h2 class="song-title">PUP HYMN</h2>
+        <h3 class="song-subtitle">Imno ng PUP</h3>
+        <a href="https://youtu.be/Yib_s5UeGvc?si=B2J_sh55CLzjThnH" target="_blank">
+            Original Video
+        </a>
+        <div class="lyrics">
+            <p data-timestamp="13">Sintang Paaralan Tanglaw ka ng bayan</p>
+            <p data-timestamp="18">Pandayan ng isip ng kabataan</p>
+            <p data-timestamp="24">Kami ay dumating nang salat sa yaman</p>
+            <p data-timestamp="29.5">Hanap na dunong ay iyong alay</p>
+            <p data-timestamp="35">Ang layunin mong makatao</p>
+            <p data-timestamp="41">Dinarangal ang Pilipino</p>
+            <p data-timestamp="47.5">Ang iyong aral, diwa, adhikang taglay</p>
+            <p data-timestamp="53">PUP, aming gabay</p>
+            <p data-timestamp="56">Paaralang dakila</p>
+            <p data-timestamp="62">PUP, pinagpala</p>
+            <p data-timestamp="68.5">Gagamitin ang karunungan</p>
+            <p data-timestamp="74">Mula sa iyo, para sa bayan</p>
+            <p data-timestamp="80">Ang iyong aral, diwa, adhikang taglay</p>
+            <p data-timestamp="86">PUP, aming gabay</p>
+            <p data-timestamp="89.5">Paaralang dakila</p>
+            <p data-timestamp="95">PUP, pinagpala</p>
+            <p data-timestamp="113"></p>
+            <p data-timestamp="114"></p>
+            <p data-timestamp="115"></p>
+            <p data-timestamp="116"></p>
+            <p data-timestamp="117"></p>
+        </div>
+        <audio controls class="audio-control">
+            <source src="./resources/PUP-hymn.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Lyrics Scroll Up -->
+    <script>
+        const audio = document.querySelector('.audio-control');
+        const lyrics = document.querySelectorAll('.lyrics p');
+        const lyricsContainer = document.querySelector('.lyrics');
+
+        audio.addEventListener('timeupdate', () => {
+            const currentTime = audio.currentTime;
+            lyrics.forEach((line, index) => {
+                const startTime = parseFloat(line.getAttribute('data-timestamp'));
+                const nextLine = lyrics[index + 1];
+                const endTime = nextLine ? parseFloat(nextLine.getAttribute('data-timestamp')) : audio.duration;
+
+                if (currentTime >= startTime && currentTime < endTime) {
+                    line.classList.add('current');
+                    line.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                } else {
+                    line.classList.remove('current');
+                }
+
+                if (currentTime >= 105 && line.getAttribute('data-timestamp') === "95") {
+                    line.classList.remove('current');
+                }
+            });
+        });
+
+        audio.addEventListener('seeked', () => {
+            const currentTime = audio.currentTime;
+            lyrics.forEach((line, index) => {
+                const startTime = parseFloat(line.getAttribute('data-timestamp'));
+                const nextLine = lyrics[index + 1];
+                const endTime = nextLine ? parseFloat(nextLine.getAttribute('data-timestamp')) : audio.duration;
+
+                if (currentTime >= startTime && currentTime < endTime) {
+                    line.classList.add('current');
+                    line.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                } else {
+                    line.classList.remove('current');
+                }
+
+                if (currentTime >= 105 && line.getAttribute('data-timestamp') === "95") {
+                    line.classList.remove('current');
+                }
+            });
+        });
+
+        audio.addEventListener('play', () => {
+            if (audio.currentTime === audio.duration || audio.currentTime === 0) {
+                lyrics.forEach(line => {
+                    line.classList.remove('current');
+                });
+                lyricsContainer.scrollTop = 0;
+            }
+        });
+    </script>
+</body>
+</html>
