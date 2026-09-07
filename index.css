@@ -47,12 +47,12 @@ header{
 
 .brand-name .title{
     margin: 0;
-    font-size: 25px;
+    font-size: clamp(14px, 4vw, 25px);
 }
 
 .brand-name .sub{
     margin: 0;
-    font-size: 1em;
+    font-size: clamp(10px, 2.5vw, 16px);
 }
 
 .container a {
